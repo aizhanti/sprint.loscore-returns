@@ -73,8 +73,19 @@ class LoScore {
     return accumulator;
   }
 
-  every() {
+  every(collection, test) {
     // YOUR CODE HERE
+    let isTrue = 0;
+    this.reduce(collection, (accumulator, item) => {
+      if (test === undefined) {
+        if (!item) {
+          isTrue++;
+        }
+      } else if (!test(item)) {
+        isTrue++;
+      }
+    });
+    return !isTrue;
   }
 
   /**
@@ -83,6 +94,13 @@ class LoScore {
   * */
   extend(obj) {
     // YOUR CODE HERE
+    const extendedObj = obj;
+    this.each(arguments, (obj) => {
+      for (const prop in obj) {
+        extendedObj[prop] = obj[prop];
+      }
+    });
+    return extendedObj;
   }
 
   /**
@@ -92,10 +110,33 @@ class LoScore {
 
   once(func) {
     // YOUR CODE HERE
+    let called = false;
+    let first;
+    return (args) => {
+      if (!called) {
+        called = true;
+        if (!args) {
+          first = func();
+        } else {
+          first = func(args);
+        }
+      } else {
+        return first;
+      }
+      return first;
+    };
   }
 
   memoize(func) {
     // YOUR CODE HERE
+    const memory = {};
+    return (arg) => {
+      arg = JSON.stringify(arg);
+      if (!memory[arg]) {
+        memory[arg] = func(arg);
+      }
+      return memory[arg];
+    };
   }
 
   invoke(collection, functionOrKey) {
