@@ -41,7 +41,7 @@ class LoScore {
 
   map(collection, iteratee) {
     // YOUR CODE HERE
-    let array = [];
+    const array = [];
     this.each(collection, (val) => {
       array.push(iteratee(val));
     });
@@ -63,7 +63,14 @@ class LoScore {
   }
 
   reduce(collection, iterator, accumulator) {
-    // YOUR CODE HERE
+    this.each(collection, (k, index) => {
+      if (index == 0 && accumulator == undefined) {
+        accumulator = k;
+      } else {
+        accumulator = iterator(accumulator, k, index);
+      }
+    });
+    return accumulator;
   }
 
   every() {
