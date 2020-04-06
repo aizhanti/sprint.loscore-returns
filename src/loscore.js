@@ -10,6 +10,16 @@ class LoScore {
   * */
   uniq(array) {
     // YOUR CODE HERE
+    let result = [];
+    let obj = {};
+    for (let i = 0; i < array.length; i++) {
+      if (!obj[array[i]]) {
+        obj[array[i]] = 1;
+        result.push(array[i]);
+      }
+    }
+    console.log(obj);
+    return result;
   }
 
   /**
